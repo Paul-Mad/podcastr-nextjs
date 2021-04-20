@@ -7,7 +7,7 @@ const Header = () => {
   return (
     <header className={styles.headerContainer}>
       <img src="/logo.svg" alt="Podcastr"></img>
-      <p>O melhor para você ouvir, sempre</p>
+      <p>The best for you, always</p>
 
       <span>{currentDate}</span>
     </header>
