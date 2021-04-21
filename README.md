@@ -2,7 +2,7 @@
 
 # Hi there 👋.
 
-# This is podcastr-nextjs
+# This is the podcastr-nextjs.
 
 ## This project was created while participating in the [NLW Edition #5](https://nextlevelweek.com/inscricao/5) by  [Rocketseat](https://rocketseat.com.br/)
 
