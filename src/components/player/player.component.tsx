@@ -1,11 +1,19 @@
+import { useContext } from "react";
+import { PlayerContext } from "../../contexts/playersContext";
 import styles from "./styles.module.scss";
 
 const Player = () => {
+  //get episode from context
+  const { episodeList, currentEpisodeIndex } = useContext(PlayerContext);
+
+  //Get the current episode
+  const episode = episodeList[currentEpisodeIndex];
+
   return (
     <div className={styles.playerContainer}>
       <header>
         <img src="/playing.svg" alt="Playing Now" />
-        <strong>Playing Now</strong>
+        <strong>Playing Now {episode?.title}</strong>
       </header>
 
       <div className={styles.emptyPlayer}>

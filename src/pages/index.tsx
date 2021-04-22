@@ -6,6 +6,8 @@ import { api } from "../services/api";
 import { convertDurationToTimeString } from "../utils/convertDurationToTimeString";
 
 import styles from "./home.module.scss";
+import { PlayerContext } from "../contexts/playersContext";
+import { useContext } from "react";
 
 //SPA === Single Page Application
 //SSR  === Server Side Rendering
@@ -36,6 +38,8 @@ export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
   //     .then((data) => data);
   // }, []);
 
+  const { play } = useContext(PlayerContext);
+
   return (
     <div className={styles.homepage}>
       <section className={styles.latestEpisodes}>
@@ -59,7 +63,7 @@ export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
                   <span>{episode.publishedAt}</span>
                   <span>{episode.durationAsString}</span>
                 </div>
-                <button type="button">
+                <button type="button" onClick={() => play(episode)}>
                   <img src="/play-green.svg" alt="Play Episode" />
                 </button>
               </li>
