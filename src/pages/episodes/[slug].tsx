@@ -2,6 +2,7 @@ import { format, parseISO } from "date-fns";
 import { GetStaticPaths, GetStaticProps } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import Head from "next/head";
 import { usePlayer } from "../../contexts/playersContext";
 import { api } from "../../services/api";
 import { convertDurationToTimeString } from "../../utils/convertDurationToTimeString";
@@ -29,6 +30,10 @@ const Episode = ({ episode }: EpisodeProps) => {
 
   return (
     <div className={styles.episode}>
+      {/* ------TITLE--- */}
+      <Head>
+        <title>Episode | {episode.title}</title>
+      </Head>
       <div className={styles.thumbnailContainer}>
         <Link href="/">
           <button type="button">
