@@ -1,6 +1,6 @@
-import { useContext, useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 import Image from "next/image";
-import { PlayerContext } from "../../contexts/playersContext";
+import { usePlayer } from "../../contexts/playersContext";
 
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
@@ -17,7 +17,11 @@ const Player = () => {
     isPlaying,
     togglePlay,
     setPlayingState,
-  } = useContext(PlayerContext);
+    playNext,
+    playPrevious,
+    hasNext,
+    hasPrevious,
+  } = usePlayer();
 
   //Get the current episode
   const episode = episodeList[currentEpisodeIndex];
@@ -90,7 +94,11 @@ const Player = () => {
           <button type="button" disabled={!episode}>
             <img src="/shuffle.svg" alt="shuffle" />
           </button>
-          <button type="button" disabled={!episode}>
+          <button
+            type="button"
+            disabled={!episode || !hasPrevious}
+            onClick={playPrevious}
+          >
             <img src="/play-previous.svg" alt=" Play previous" />
           </button>
           <button
@@ -105,7 +113,11 @@ const Player = () => {
               <img src="/play.svg" alt="Play" />
             )}
           </button>
-          <button type="button" disabled={!episode}>
+          <button
+            type="button"
+            disabled={!episode || !hasNext}
+            onClick={playNext}
+          >
             <img src="/play-next.svg" alt="Play next" />
           </button>
           <button type="button" disabled={!episode}>
