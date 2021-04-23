@@ -7,15 +7,19 @@ import "rc-slider/assets/index.css";
 import styles from "./styles.module.scss";
 
 const Player = () => {
-  //select the audio element
+  //----------------select the audio element
   const audioRef = useRef<HTMLAudioElement>(null);
 
-  //get episode from context
+  //----------------get episode from context
   const {
     episodeList,
     currentEpisodeIndex,
     isPlaying,
+    isLooping,
+    isShuffling,
     togglePlay,
+    toggleLoop,
+    toggleShuffle,
     setPlayingState,
     playNext,
     playPrevious,
@@ -23,10 +27,10 @@ const Player = () => {
     hasPrevious,
   } = usePlayer();
 
-  //Get the current episode
+  //-----------Get the current episode
   const episode = episodeList[currentEpisodeIndex];
 
-  //Execute when isPlaying changes
+  //-----------Execute when isPlaying changes
   useEffect(() => {
     if (!audioRef.current) return;
 
@@ -37,7 +41,7 @@ const Player = () => {
     }
   }, [isPlaying]);
 
-  //Return JSX element
+  //---------Return JSX element
   return (
     <div className={styles.playerContainer}>
       <header>
@@ -79,11 +83,12 @@ const Player = () => {
           <span>00:00</span>
         </div>
 
-        {/* Audio Element */}
+        {/* ------------Audio Element -------*/}
         {episode && (
           <audio
             src={episode.url}
             autoPlay
+            loop={isLooping}
             ref={audioRef}
             onPlay={() => setPlayingState(true)}
             onPause={() => setPlayingState(false)}
@@ -91,7 +96,12 @@ const Player = () => {
         )}
 
         <div className={styles.buttons}>
-          <button type="button" disabled={!episode}>
+          <button
+            type="button"
+            disabled={!episode || episodeList.length === 1}
+            onClick={toggleShuffle}
+            className={isShuffling ? styles.isActive : ""}
+          >
             <img src="/shuffle.svg" alt="shuffle" />
           </button>
           <button
@@ -120,7 +130,12 @@ const Player = () => {
           >
             <img src="/play-next.svg" alt="Play next" />
           </button>
-          <button type="button" disabled={!episode}>
+          <button
+            type="button"
+            disabled={!episode}
+            onClick={toggleLoop}
+            className={isLooping ? styles.isActive : ""}
+          >
             <img src="/repeat.svg" alt="Repeat" />
           </button>
         </div>
